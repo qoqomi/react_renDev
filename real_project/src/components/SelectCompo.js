@@ -82,7 +82,7 @@ function SelectCompo() {
         <App />
       </DropDownAllWrap>
       {/* 캘린더 */}
-      <Datepick></Datepick>
+
       <DayPickerTwo />
     </Container>
   );

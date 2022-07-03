@@ -13,6 +13,7 @@ const DayPickerTwo = () => {
   const onClickToggle = () => {
     setToggle((prev) => !prev);
   };
+
   let footer = (
     <Container1
       type="button"
@@ -71,13 +72,13 @@ const DayPickerTwo = () => {
   }
 
   return (
-    <div>
+    <DivDayPicker>
       {footer}
       {toggle ? (
         <DayPicker
+          className="dayPicker_container__divMain"
           styles={{
             caption: { fontSize: "10px", padding: "10px" },
-            day_range_end: { fontSize: "40px" },
           }}
           mode="range"
           selected={selected}
@@ -89,7 +90,7 @@ const DayPickerTwo = () => {
       ) : (
         ""
       )}
-    </div>
+    </DivDayPicker>
   );
 };
 //첫번째 시안
@@ -103,14 +104,16 @@ const Container1 = styled.button`
   background-color: white;
   border: 1px solid #685bc7;
   padding: 0 0px;
-  margin-top: 15px;
   margin-left: 30px;
-  margin-right: 20px;
+
   border-radius: 30px;
   background-color: white;
   transition: 0.4s ease;
   border: 1px solid #685bc7;
   outline: none;
+  margin-top: 0px;
+
+  //position: relative;
 `;
 //시작날짜, 끝날짜 따로따로
 const ContainerStartDateDiv1 = styled.div`
@@ -120,7 +123,7 @@ const ContainerStartDateDiv1 = styled.div`
   align-items: flex-start;
   cursor: pointer;
   border-radius: 20px;
-  padding-left: 40px;
+  padding-left: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
 
@@ -141,5 +144,14 @@ const SelectedDate = styled.div`
   min-width: 110px;
   font-size: 12px;
   color: ${({ theme }) => theme.black};
+`;
+
+//전체
+const DivDayPicker = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  position: relative;
 `;
 export default DayPickerTwo;

@@ -67,7 +67,7 @@ const DayPickerMain = () => {
   }
 
   return (
-    <div className="dayPicker_container">
+    <div>
       <DayPicker
         styles={{
           caption: { fontSize: "10px", padding: "10px" },
