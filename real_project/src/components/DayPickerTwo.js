@@ -112,8 +112,6 @@ const Container1 = styled.button`
   border: 1px solid #685bc7;
   outline: none;
   margin-top: 0px;
-
-  //position: relative;
 `;
 //시작날짜, 끝날짜 따로따로
 const ContainerStartDateDiv1 = styled.div`
