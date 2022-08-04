@@ -125,6 +125,7 @@ export const loginAxios = (userEmail, password) => {
   };
   
 };
+
 //user정보조회
 export const checkUserValidation = () => {
   return async function (dispatch) {
@@ -146,7 +147,7 @@ export const checkUserValidation = () => {
       });
   };
 };
-  //  - 9. 이메일 코드
+  //  이메일 인증
 export const checkEmailAxios = (userId, code) => {
   return async function (dispatch) {
     let checksuccess = null;
@@ -162,19 +163,21 @@ export const checkEmailAxios = (userId, code) => {
   };
 };
 
-
+// 로그아웃
 export const logOutAxios = () => {
   return async function (dispatch) {
     await apis
-      .userlogOut().
-      then((res) => {
-        dispatch(logOut());
-      }).catch((err) => {
+      .userlogOut()
+      .then((res) => {
+       dispatch(logOut());
       })
-  }
-}
+      .catch((err) => {
+      });
+  };
+};
 
-  //  - 9. 회원탈퇴
+
+  //  회원탈퇴
 export const userDeleteAxios = (nickname,password) => {
   return async function (dispatch) {
     await apis
@@ -192,7 +195,6 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
 
     case "user/LOGIN": {
-
       const newUserInfo = {
         userId: action.payload.userId,
         nickname: action.payload.nickname,
@@ -208,7 +210,6 @@ export default function reducer(state = initialState, action = {}) {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       localStorage.removeItem("nickname");
-
       const newUserInfo = {
         userEmail: null,
         nickname:null,

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserValidation, logOutAxios,logOut} from "../redux/modules/user";
+import { checkUserValidation, logOutAxios} from "../redux/modules/user";
 import {resetresult} from "../redux/modules/search"
 
 import JoinModal from "../components/Modal/JoinModal";
 
 import BasicPhoto from "../image/astro-white.svg"
 import Logo from "../image/Logo_vertical.svg"
-import {useCookies} from "react-cookie"
+
 
 function Header() {
 
@@ -23,7 +23,6 @@ function Header() {
   const [currentClick, setCurrentClick] = useState(null);
   const [prevClick, setPrevClick] = useState(null);
   const [Joinmodal, setJoinModal] = useState(false);
-const [cookies, setCookie, removeCookie] = useCookies(["refreshtoken"]);
 
 //확인
   useEffect(() => {
@@ -34,14 +33,8 @@ const [cookies, setCookie, removeCookie] = useCookies(["refreshtoken"]);
   const logoutClick = () => {
     const result = window.confirm("정말...나가실건가욥..? 🥸");
     if (result) {
-      
-       navigate("/");
       dispatch(logOutAxios());
-    
-        removeCookie("refreshtoken");
-
-       
-     
+       navigate("/");
     } 
   }
 
