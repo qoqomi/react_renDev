@@ -7,6 +7,7 @@ import close from "../../image/closeIcon.svg"
 import { useDispatch ,useSelector} from "react-redux"
 import { userDeleteAxios } from "../../redux/modules/user"
 import { useNavigate } from "react-router-dom"
+
 function FireModal(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();

@@ -33,12 +33,9 @@ export function deleteRecruit(payload) {
   return { type: DELETE, payload};
 }
 
-// export function appointRecruit(payload) {
-//   return { typpe: APPOINT, payload };
-// }
 
 
-//미들믿을
+//프로젝트 조회
 export const loadRecruitAxios = () => {
   return async function (dispatch) {
     await apis
@@ -54,7 +51,7 @@ export const loadRecruitAxios = () => {
     } 
   };
 
-
+//사진
 export const projectsPhotosAxios = (frm) => {
 
   return async function (dispatch) {
@@ -71,7 +68,7 @@ export const projectsPhotosAxios = (frm) => {
   }
 }
 
-
+//프로젝트 등록
 export const createRecruitAxios = (
   title, 
   details, 
@@ -112,7 +109,7 @@ export const createRecruitAxios = (
       });
   };
 };
-
+//프로젝트 상세조회
 export const LoadDetailAxios = (projectId) => {
   return async function(dispatch, useState) {
     await apis
@@ -124,6 +121,7 @@ export const LoadDetailAxios = (projectId) => {
     })
   }
 }
+//프로젝트 수정
 export const editRecruitAxios = (
   projectId,
   title,
@@ -173,7 +171,7 @@ export const editRecruitAxios = (
   };
 };
 
-
+//프로젝트 삭제
 export const deleteRecruitAxios = (projectId) => {
   let res = null;
   return async function (dispatch) {

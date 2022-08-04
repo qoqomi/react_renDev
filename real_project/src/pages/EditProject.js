@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   editRecruitAxios,
   LoadDetailAxios,
-  projectsPhotosAxios,
 } from "../redux/modules/postRecruit";
 import { loadRecruitAxios } from "../redux/modules/postRecruit";
 import {
@@ -97,9 +96,7 @@ const EditProject = (props) => {
     setEndDate(end);
   };
 
-  ///////////////////////
-  /////////시간//////////
-  /////////////////////
+//시간
   const hourUpOnClick = () => {
     if (hour < 23) {
       setHour(hour + 1);
@@ -163,9 +160,6 @@ const EditProject = (props) => {
       }
     }
   };
-  ///////////////////////
-  /////////시간 끝//////////
-  /////////////////////
 
   //single달력
   const singleCalenderOnChange = (date) => {
@@ -209,7 +203,6 @@ const EditProject = (props) => {
       role === "" ||
       startDate === "" ||
       endDate === "" ||
-      checkList === "" ||
       newSchedule === "" ||
       titleRef.current.value === " " ||
       detailsRef.current.value === " " ||
@@ -217,7 +210,6 @@ const EditProject = (props) => {
       role === " " ||
       startDate === " " ||
       endDate === " " ||
-      checkList === " " ||
       newSchedule === " " ||
       titleRef.current.value === null ||
       detailsRef.current.value === null ||
@@ -225,7 +217,7 @@ const EditProject = (props) => {
       role === null ||
       startDate === null ||
       endDate === null ||
-      checkList === null ||
+      checkList.length <= 0 ||
       newSchedule === null
     ) {
       alert("아직 다 작성하지 않았어요!🥸");

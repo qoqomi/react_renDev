@@ -74,7 +74,7 @@ export function resetresult(payload){
 
 
 
-//미들웨어
+//역할, 기술스택, 기간 검색
 export const SearchAxios = (
   role,
   skill,
@@ -106,7 +106,7 @@ export const SearchAxios = (
   };
 };
 
-
+//역할, 기술스택, 기간 검색
 export const SearchResumeAxios = (
   role,
   skills,

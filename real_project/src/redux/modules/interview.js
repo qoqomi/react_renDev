@@ -1,7 +1,6 @@
-import { resolvePath } from "react-router-dom";
+
 import { apis } from "../../shared/api";
 
-//로드 액션
 const LOADRESUMES = "interview/LOADRESUMES";
 const LOADPROJECTS = "interview/LOADPROJECTS";
 
@@ -10,13 +9,12 @@ const PERPOSEUSERPROJECT = "interview/PERPOSEUSERPROJECT";
 //인터뷰 status 관리
 const INTERVIEWINDSTATUS = "interview/INTERVIEWINDSTATUS";
 const INTERVIEWMATCHSTATUS = "interview/INTERVIEWMATCHSTATUS";
-//이니셜 스테이트
+
 const initialState = {
   resumes: [],
   projects:[],
 };
 
-//로드 액션함수
 export function loadResumes(payload) {
  
   return { type: LOADRESUMES, payload };
@@ -41,7 +39,8 @@ export function interviewEndStatus(payload) {
 export function interviewMatchStatus(payload) {
   return { type: INTERVIEWMATCHSTATUS, payload };
 }
-//미들웨어
+
+//지원자의 지원서 목록 조회
 export const loadResumesAxios = () => {
   return async function (dispatch) {
     await apis
@@ -55,7 +54,7 @@ export const loadResumesAxios = () => {
       });
   };
 };
-
+//지원서에 면접 제안시 내 프로젝트 목록 조회
 export const loadProjectsAxios = () => {
   return async function (dispatch) {
     await apis
@@ -68,16 +67,13 @@ export const loadProjectsAxios = () => {
       });
   };
 };
-
+//예약
 export const projectInterviewAxios = (applcationId,resumeId) => {
   return async function (dispatch) {
     await apis
       .projectInterview(applcationId, resumeId)
       .then((res) => {
-
-       
           alert("성공적으로 예약되었습니다. 🥸");
-      
       })
       .catch((err) => {
         if (err) {
@@ -99,14 +95,7 @@ export const proposalUserProjectsAxios = (resumeId, projectId) => {
    
       })
       .catch((err) => {
-     
         alert(err.response.data.errorMessage);
-        // if (err.response.status === 400) {
-        //   alert(err.response.data.errorMessage);
-        // }
-        // else if (err.message === "Request failed with status code 404") {
-        //   alert("소개글도 같이 선택해주세요!");
-        // }
       });
   };
 };
@@ -147,9 +136,7 @@ export const interviewMatchStatusAxios = (applicationId,matching) => {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    // 로드 리듀서
     case "interview/LOADRESUMES": {
-       
       return {
         resumes: action.payload,
         projects: state.projects,

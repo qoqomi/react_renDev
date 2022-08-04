@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 import Logo from "../../image/Logo_vertical.svg";

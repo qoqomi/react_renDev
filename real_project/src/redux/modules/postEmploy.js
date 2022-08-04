@@ -31,7 +31,7 @@ export function loadSingleEmploy(payload) {
   return { type: LOAD_SINGLE , payload};
 }
 
-//middleware
+//팀원 찾기 전체 조회
 export const loadEmployAxios = () => {
   return async function (dispatch) {
     await apis
@@ -63,7 +63,7 @@ export const projectsPhotosAxios = (frm) => {
     return success; 
   }
 }
-
+//팀원 찾기 등록
 export const resumesCreateAxios = (
   content, 
   start, 
@@ -75,7 +75,6 @@ export const resumesCreateAxios = (
    _resumeId,
    _nickname
 ) => {
-
   return async function (dispatch) {
     await apis
       .resumesCreate(
@@ -88,7 +87,6 @@ export const resumesCreateAxios = (
         content3
       )
       .then((response) => {
-
         dispatch(
           createEmploy({
             content: content,
@@ -102,26 +100,24 @@ export const resumesCreateAxios = (
             nickname: _nickname
           })
         );
-       
       }).catch((err) => {
       })
   };
 };
-
+//팀원찾기 상세조회
 export const loadSingleEmployAxios = (resumeId) => {
   return async function (dispatch,useState) {
     await apis
       .resumesLoadDetail(resumeId)
       .then((response) => {
         dispatch(loadSingleEmploy(response.data.resumes));
-        // dispatch(loadEmploy(list));
       })
       .catch((err) => {
 
       });
   };
 };
-
+//팀원 찾기 수정
 export const modifyEmployAxios = (
   resumeId,
   content,
@@ -160,7 +156,7 @@ export const modifyEmployAxios = (
       });
   };
 };
-
+//팀원 찾기 삭제
 export const deleteEmployAxios = (resumeId) => {
   return async function (dispatch) {
     await apis

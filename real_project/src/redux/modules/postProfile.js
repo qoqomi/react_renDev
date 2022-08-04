@@ -16,7 +16,6 @@ const initialState = {
 export function loadApply(payload) {
   return { type: LOADAPPLY, payload };
 }
-
 export function loadProject(payload) {
   return { type: LOADPROJECT, payload };
 }
@@ -30,7 +29,6 @@ export function loadPhoto(payload) {
   return { type: USERPHOTOS, payload };
 }
 
-//middleware
 
 //내 지원정보 조회
 export const loadApplyAxios = (nickname) => {
@@ -59,6 +57,7 @@ export const loadProjectAxios = (nickname) => {
       });
   };
 };
+
 //내 resumes 조회
 export const loadResumesAxios = (nickname) => {
   return async function (dispatch) {
@@ -71,7 +70,7 @@ export const loadResumesAxios = (nickname) => {
       });
   };
 };
-  //  - 10. 내 Project 조회
+  //내 Project 조회
 export const loadProjectsAxios = (nickname) => {
   return async function (dispatch) {
     await apis
