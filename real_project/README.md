@@ -18,8 +18,7 @@
  
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FHanghae-Realwork%2Ffront-end%2Ftree%2Fmain%2Freal_project&count_bg=%234E8FC7&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true)](https://hits.seeyoufarm.com)
  
----
- 
+
 #### 목차 | Contents
 ##### 1. [서비스 소개](#-서비스-소개)
 ##### 2. [프로젝트 기간 및 팀원 소개](#-프로젝트-기간-및-팀원-소개)
@@ -30,7 +29,7 @@
  
 <br/>
 
----
+
 
 ## **🚀 서비스 소개**  
 * renDev는 "포트폴리오를 준비하는 개발자 및 디자이너를 위한 협업 프로젝트 매칭 서비스" 입니다. <br/>
