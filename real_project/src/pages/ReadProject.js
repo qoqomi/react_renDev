@@ -24,7 +24,6 @@ function ReadProject() {
   const [Arcodian, setArcodian] = useState(false);
 
   const userName_Info = useSelector((state) => state.user.userInfo.userId);
-  const profileImage = useSelector((state) => state.user.userInfo.profileImage);
   
   // 예약기능
   const [applicationId, setApplicationId] = useState("");

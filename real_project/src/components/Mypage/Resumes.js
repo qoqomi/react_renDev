@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 
 import {loadResumesAxios} from "../../redux/modules/postProfile";
@@ -9,7 +8,6 @@ import TagDes from "../../components/Tag/TagCompoDes"
 import TagDev from "../../components/Tag/TagCompoDev"
 import CardEmpol from "../CardEmpol";
 
-import letter from "../../image/letter.svg"
 import EmptyMyCard from "../Mypage/EmptyMyCard";
 
 

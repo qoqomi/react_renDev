@@ -23,7 +23,6 @@ import ko from "date-fns/locale/ko";
 
 
 const FindProjectStep01 = (props) => {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -50,18 +49,21 @@ const FindProjectStep01 = (props) => {
   const [minute, setMinute] = useState(0);
   const [rangeTime, setRangeTime] = useState({});
 
-    const [year, setYear] = useState(new Date().getFullYear());
-    const [month, setMonth] = useState(new Date().getMonth()+1);
-    const [day, setDay] = useState(new Date().getDate());
-  let newDate = year + "-" + month + "-" + day;
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [day, setDay] = useState(new Date().getDate());
 
+  //2단계 :사용되는 날짜 + 시간 에 대한 상태관리
+  const [rangeTotal, setRangeTotal] = useState([]);
+  const [newList, setNewList] = useState([]);
+  let newDate = year + "-" + month + "-" + day;
 
   useEffect(() => {
     setRangeTime({});
-    setHour(0)
-    setMinute(0)
-  }, [singleDate])
- 
+    setHour(0);
+    setMinute(0);
+  }, [singleDate]);
+
   //Role 값 (코코미 코드)
   const onChangeRole = (e) => {
     setRole(e.target.value);
@@ -103,9 +105,7 @@ const FindProjectStep01 = (props) => {
     setEndDate(end);
   };
 
-  ///////////////////////
-  /////////시간//////////
-  /////////////////////
+  //시간
   const hourUpOnClick = () => {
     if (hour < 23) {
       setHour(hour + 1);
@@ -129,7 +129,10 @@ const FindProjectStep01 = (props) => {
       if (hour === 23) {
         setHour(0);
         setMinute(0);
-      } else { setHour(hour + 1); setMinute(0); }
+      } else {
+        setHour(hour + 1);
+        setMinute(0);
+      }
     }
   };
 
@@ -166,82 +169,64 @@ const FindProjectStep01 = (props) => {
       }
     }
   };
-  ///////////////////////
-  /////////시간 끝//////////
-  /////////////////////
 
-
-  //single달력
+  //single달력 (가공)
   const singleCalenderOnChange = (date) => {
     setYear(String(date.getFullYear()).padStart(2, "0"));
     setMonth(String(date.getMonth() + 1).padStart(2, "0"));
     setDay(String(date.getDate()).padStart(2, "0"));
-    setSingleDate(date)
+    setSingleDate(date);
   };
- 
- 
+
   const date = year + "-" + month + "-" + day;
   const time = `${("00" + hour).slice(-2)}:${("00" + minute).slice(-2)}`;
 
   const timeAddOnClick = () => {
-
     let temp = { ...rangeTime };
-    if (temp[date] && temp[date].length < 5) { 
-    if (Object.keys(temp).includes(date) && !temp[date].includes(time)) {
-      temp[date] = [...temp[date], time];
-    } else if (temp[date] && temp[date]) {
-      if (Object.keys(temp).includes(date) && temp[date].includes(time)) {
-        temp[date] = [...temp[date]];
+    // if ~else : key에 date가 포함되어 있다면 기존 time에 배열 추가, 그렇지 않으면 새로 들어온 신참time을 배열에 넣어준다
+    // else if : 기존 time배열에서 중복 time이 포함되어 있다면 기존배열만 반환 , 첫번째 날짜의 undefined값이 나오므로 예외처리 후 조건 추가.
+    // temp[date].length < 5: 타임테이블 5개 이하 조건 추가
+    if (temp[date] && temp[date].length < 5) {
+      if (Object.keys(temp).includes(date) && !temp[date].includes(time)) {
+        temp[date] = [...temp[date], time];
+      } else if (temp[date] && temp[date]) {
+        if (Object.keys(temp).includes(date) && temp[date].includes(time)) {
+          temp[date] = [...temp[date]];
+        }
+      } else {
+        temp[date] = [time];
       }
     } else {
       temp[date] = [time];
     }
-    } else {
-       temp[date] = [time];
-    }
-
     //오름차순으로 정리
     temp[date] = temp[date].sort((a, b) => {
-          return Number(a.replace(":", "")) - Number(b.replace(":", ""));
-        })
-
+      return Number(a.replace(":", "")) - Number(b.replace(":", ""));
+    });
     setRangeTime(temp);
-
   };
 
-//2단계 :사용되는 날짜 + 시간 에 대한 상태관리
-  const [rangeTotal, setRangeTotal] = useState([]);
-  const [newList,setNewList] = useState([])
-  
-  
   const schduleAddOnClick = () => {
     // [{},{},{}]
 
     const arr = rangeTotal.filter((list) => {
-     return Object.keys(list).toString() === Object.keys(rangeTime).toString();
-    })
+      return Object.keys(list).toString() === Object.keys(rangeTime).toString();
+    });
     if (arr.length === 0 && Object.keys(rangeTime).length !== 0) {
       let arr1 = [...rangeTotal, rangeTime];
-      //미완성 진행중 지우지 말것
-      //  const arr4= arr1.sort((a,b) => {
-      //   return Object.keys(a) - Object.keys(b);
-      // })
-      // setRangeTotal(arr1);
-       setRangeTotal(arr1);
+      setRangeTotal(arr1);
     }
   };
 
-
   // 저장 버튼
   const CompliteButton = () => {
-    //날짜+시간 데이터 가공 
+    //날짜+시간 데이터 가공(벡엔드에게 보낼 데이터 가공)
     let new_list = [];
 
     rangeTotal.forEach((item, index) => {
-
-      const date = Object.keys(item)
+      const date = Object.keys(item);
       const times = item[date];
-  
+
       times.forEach((time) => {
         const dateTime = date + " " + time;
         setNewList(new_list.push(dateTime));
@@ -255,22 +240,19 @@ const FindProjectStep01 = (props) => {
       role === "" ||
       startDate === "" ||
       endDate === "" ||
-      checkList === "" ||
-
       titleRef.current.value === " " ||
       detailsRef.current.value === " " ||
       subscriptRef.current.value === " " ||
       role === " " ||
       startDate === " " ||
       endDate === " " ||
-      checkList === " " ||
       titleRef.current.value === null ||
       detailsRef.current.value === null ||
       subscriptRef.current.value === null ||
       role === null ||
       startDate === null ||
       endDate === null ||
-      checkList === null ||
+      checkList.length <= 0 ||
       new_list.length === 0
     ) {
       alert("아직 다 작성하지 않았어요!🥸");
@@ -282,30 +264,23 @@ const FindProjectStep01 = (props) => {
           subscriptRef.current.value,
           role,
           startDate.getFullYear() +
-          "-" +
-          (startDate.getMonth() + 1) +
-          "-" +
-          startDate.getDate(),
+            "-" +
+            (startDate.getMonth() + 1) +
+            "-" +
+            startDate.getDate(),
           endDate.getFullYear() +
-          "-" +
-          (endDate.getMonth() + 1) +
-          "-" +
-          endDate.getDate(),
+            "-" +
+            (endDate.getMonth() + 1) +
+            "-" +
+            endDate.getDate(),
           checkList,
           new_list
         )
       ).then((res) => {
         navigate("/mainrecruit");
-      })
-      
-        
-        
-       
-
+      });
     }
   };
-      
-
 
   return (
     <BackgroundAllWrap>
@@ -313,7 +288,7 @@ const FindProjectStep01 = (props) => {
         <FindprojectTopWrap>
           <FindProjectTitleText>새로운 크루 모집하기</FindProjectTitleText>
         </FindprojectTopWrap>
-        
+
         <HeadLine />
 
         <FindProjectInputTitle>
@@ -327,7 +302,9 @@ const FindProjectStep01 = (props) => {
         </FindProjectInputTitle>
 
         <FindProjectInputTitle>
-          <ProjectTitleText>프로젝트 요약 (미리보기에 보여질 간략한 소개입니다)</ProjectTitleText>
+          <ProjectTitleText>
+            프로젝트 요약 (미리보기에 보여질 간략한 소개입니다)
+          </ProjectTitleText>
           <ProjectInput
             ref={subscriptRef}
             id="subscript"
@@ -452,7 +429,7 @@ const FindProjectStep01 = (props) => {
               })}
           </SelectBoxTab>
         </InputMainTextWrap>
-        
+
         {/* 달력🗓 */}
         <InputMainTextWrap>
           <ProjectTitleText>면접 가능 시간</ProjectTitleText>
@@ -464,7 +441,7 @@ const FindProjectStep01 = (props) => {
                   onChange={singleCalenderOnChange}
                   startDate={startDate}
                   dateFormat="YYYY-MM-DD"
-                  locale={ko} // 달력 한글화
+                  locale={ko}
                   minDate={new Date()}
                   monthsShown={1}
                   inline
@@ -522,32 +499,28 @@ const FindProjectStep01 = (props) => {
                   : "날짜를 선택해주세요."}
               </InterviewTextDate>
               <TimeAddButtonWrap>
-                {
-                  rangeTime[newDate] &&
-                  rangeTime[newDate].map(
-                    (ele, idx) => {
-                    
-                      return (
-                        <TimeAddLeftWrap key={idx}>
-                          <LeftTimeButton>{ele}</LeftTimeButton>
-                          <LeftDelBtn
-                            onClick={(e) => {
-                              const new_post = rangeTime[
-                                newDate
-                              ].filter((l, index) => {
+                {rangeTime[newDate] &&
+                  rangeTime[newDate].map((ele, idx) => {
+                    return (
+                      <TimeAddLeftWrap key={idx}>
+                        <LeftTimeButton>{ele}</LeftTimeButton>
+                        <LeftDelBtn
+                          onClick={(e) => {
+                            const new_post = rangeTime[newDate].filter(
+                              (l, index) => {
                                 return idx !== index;
-                              });   
-                              setRangeTime({
-                                  [newDate]
-                                : new_post}) 
-                            }}
-                          >
-                            삭제하기
-                          </LeftDelBtn>
-                        </TimeAddLeftWrap>
-                      );
-                    }
-                  )}
+                              }
+                            );
+                            setRangeTime({
+                              [newDate]: new_post,
+                            });
+                          }}
+                        >
+                          삭제하기
+                        </LeftDelBtn>
+                      </TimeAddLeftWrap>
+                    );
+                  })}
               </TimeAddButtonWrap>
               <TimeAddButton onClick={schduleAddOnClick}>
                 면접시간 등록
@@ -560,7 +533,7 @@ const FindProjectStep01 = (props) => {
 
         <AddbleTimeWrap>
           {rangeTotal.map((list, idx) => {
-            const min = Object.keys(list).toString()
+            const min = Object.keys(list).toString();
             return (
               <TimeSelectWrapPlus key={idx}>
                 <InterviewDateWrap>
@@ -571,9 +544,9 @@ const FindProjectStep01 = (props) => {
                   <BotDelBtn
                     onClick={(e) => {
                       const new_post = rangeTotal.filter((ele, index) => {
-                       return idx !== index;
-                      })
-                        setRangeTotal(new_post)
+                        return idx !== index;
+                      });
+                      setRangeTotal(new_post);
                     }}
                   >
                     삭제
@@ -593,7 +566,6 @@ const FindProjectStep01 = (props) => {
               </TimeSelectWrapPlus>
             );
           })}
-
         </AddbleTimeWrap>
 
         {/* 아래 하단 끝 */}

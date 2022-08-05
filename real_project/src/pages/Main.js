@@ -1,18 +1,12 @@
 import React,{useEffect} from "react"
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import {checkUserValidation} from "../redux/modules/user"
 
 import "../App.css"
 
 import Footer from "../components/Footer";
-
-import Sample from "../image/mainSample.svg"
 import Space from "../image/space.svg"
-import banner from "../image/banner_com_edit.svg"
-import spacebackground from "../image/editspace.svg"
+
 import emptyspace from "../image/justspace.svg"
 import cloud from "../image/spacecloud.svg"
 import shuttle from "../image/editshuttle.svg"

@@ -19,12 +19,10 @@ function Join() {
 
   //회원가입 변수
   const [userId, setUserId] = useState("");
-   const [certification, setCertification] = useState("");
+  const [certification, setCertification] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-
-
 
   //error
   const [userIdError, setUserIdError] = useState({
@@ -65,7 +63,8 @@ function Join() {
   const [userIdCheck, setUserIdCheck] = useState(false);
   const [nicknameCheck, setNicknameCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
-    const [Agreemodal, setAgreeModal] = useState(false);
+  const [Agreemodal, setAgreeModal] = useState(false);
+
   //체크박스
   useEffect(() => {
     if (useCheck === true && marketingCheck === true) {
@@ -119,9 +118,6 @@ function Join() {
         }
       })
       .catch((err) => {
-
-
-
       });
   };
 
@@ -132,7 +128,8 @@ function Join() {
  
   };
   const onClickcheckEmail = () => {
-    dispatch(checkEmailAxios(userId, certification)).then((checksuccess) => {
+    dispatch(checkEmailAxios(userId, certification))
+      .then((checksuccess) => {
       if (checksuccess === true) { 
        setCertificationError({
         status: true,
@@ -149,7 +146,6 @@ function Join() {
         setEmailCheck(false)
       }
     }).catch((err) => {
-
     })
 
   };

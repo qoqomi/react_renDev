@@ -74,9 +74,6 @@ function EmploymentProfile() {
 
  //undefined일때 null 처리 나머지 return 
  if(!data[0]) return null 
-
-
-
   return (
     <>
       <BackColorTestWrap>

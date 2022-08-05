@@ -3,18 +3,15 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { checkUserValidation, login } from "../redux/modules/user";
 import { userPhotoAxios } from "../redux/modules/postProfile";
-import { useNavigate, useParams, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-import Application from "../components/Mypage/Application";
-import Recruitment from "../components/Mypage/Recruitment";
+
 import MyButton from "../components/Mypage/MyPageButton";
 import FireModal from "../components/Modal/FireModal"
 
 import astroman from "../image/pluastroman.svg";
-import email from "../image/letter.svg";
-import Check from "../image/check.svg";
 import LeftBackground from "../image/mypagBackground.svg"
-import Plus from "../image/plus.svg";
+
 
 
 

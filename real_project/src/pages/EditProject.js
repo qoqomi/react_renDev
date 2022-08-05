@@ -15,7 +15,6 @@ import ko from "date-fns/locale/ko";
 import Footer from "../components/Date/Footer";
 import DatePicker from "react-datepicker";
 
-
 import upicon from "../image/upicon.svg";
 import downicon from "../image/downicon.svg";
 import delIcon from "../image/tagclose.svg"
@@ -41,10 +40,6 @@ const EditProject = (props) => {
 
   //캘린더 Single
   const [singleDate, setSingleDate] = useState("");
-
-  //사진 파일 유무
-  const [filesImg, setFilesImg] = useState("");
-  const [files, setFiles] = useState("");
 
   //시간과 분
   const [hour, setHour] = useState(0);
@@ -87,8 +82,6 @@ const EditProject = (props) => {
     }
   };
 
-  //fileReader
-  const frm = new FormData();
 
   const DoubleCalenderOnChange = (dates) => {
     const [start, end] = dates;

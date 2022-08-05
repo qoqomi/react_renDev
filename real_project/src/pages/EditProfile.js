@@ -10,13 +10,11 @@ import {
 import {loadSingleEmployAxios, modifyEmployAxios} from "../redux/modules/postEmploy";
 
 import astroman from "../image/astroman.svg";
-import Letter from "../image/letter.svg";
 import { useParams } from "react-router-dom";
 //DatePicker
 import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import Footer from "../components/Date/Footer";
-
 
 function EditProfile(props) {
 
@@ -42,11 +40,7 @@ function EditProfile(props) {
 
   //userId,nickname 정보
   const userIdInfo = useSelector((state) => state.user.userInfo);
-  const _resumeId = useSelector((state) => state.user.userInfo.userId);
-  const _nickname = useSelector((state) => state.user.userInfo.nickname);
-   const profileImage = useSelector(
-     (state) => state.user.userInfo.profileImage
-   );
+  const profileImage = useSelector((state) => state.user.userInfo.profileImage);
   //로그인 유무
   const loginInfo = useSelector((state) => state.user.userInfo.is_login);
 
